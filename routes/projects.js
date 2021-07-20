@@ -23,7 +23,7 @@ router.get("/getProjectById/:projectId", projectsController.getProjectById);
 /**
  *
  */
-router.put("/getProjectById/:projectId", projectsController.editProjectById);
+router.put("/editProject/:projectId", projectsController.editProjectById);
 
 /**
  *

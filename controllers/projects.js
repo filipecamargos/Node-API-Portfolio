@@ -11,8 +11,11 @@
  * Get One Project by ID
  */
  exports.getProjectById = async (req, res, next) => {
+    const id = req.params.projectId;
+
     res.status(200).json({
-        test: 'Get One Project by ID'
+        test:"Get A Project By ID",
+        id: id
     })
 }
 
@@ -33,8 +36,11 @@ exports.getAllProjects = async (req, res, next) => {
  * Edit A Project by ID
  */
  exports.editProjectById = async (req, res, next) => {
+    const id = req.params.projectId;
+
     res.status(200).json({
-        test: "Edit A Project by ID",
+        test:"Edit A Project By ID",
+        id: id
     })
 }
 
@@ -43,7 +49,10 @@ exports.getAllProjects = async (req, res, next) => {
  * Delete A Project by ID
  */
  exports.deleteProjectById = async (req, res, next) => {
+    const id = req.params.projectId;
+
     res.status(200).json({
-        test:"Delete A Project By ID"
+        test:"Delete A Project By ID",
+        id: id
     })
 }
