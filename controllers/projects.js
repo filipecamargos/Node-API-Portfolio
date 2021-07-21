@@ -1,10 +1,32 @@
+const Project = require("../model/project");
+
 /**
  * Create a Project
  */
  exports.createOneProject = async (req, res, next) => {
-    res.status(200).json({
-        test: 'Create a Project'
+    
+    //get the body values
+    let title = req.body.title;
+    let imagePath = req.body.imagePath;
+    let description = req.body.description;
+    let stack = req.body.stack;
+    let link = req.body.link;
+
+    //instantiate the schema
+    const project = new Project({
+        title : title,
+        imagePath : imagePath,
+        description : description,
+        stack : stack,
+        link : link,
     })
+
+    //save and handle the data
+    try {
+        await project.save();
+        res.status(201).json(project)
+
+    } catch(err){catchErrorHandling(err)};
 }
 
 /**
@@ -56,3 +78,12 @@ exports.getAllProjects = async (req, res, next) => {
         id: id
     })
 }
+
+/**
+ * Helping Functions
+ */
+
+//Catch error handler
+const catchErrorHandling = (err) => {
+    console.log(err);
+};
