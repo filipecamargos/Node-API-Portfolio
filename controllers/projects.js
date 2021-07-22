@@ -4,7 +4,7 @@ const Project = require("../model/project");
  * Create a Project
  */
  exports.createOneProject = async (req, res, next) => {
-    
+   
     //get the body values
     let title = req.body.title;
     let imagePath = req.body.imagePath;
@@ -33,12 +33,23 @@ const Project = require("../model/project");
  * Get One Project by ID
  */
  exports.getProjectById = async (req, res, next) => {
-    const id = req.params.projectId;
 
-    res.status(200).json({
-        test:"Get A Project By ID",
-        id: id
-    })
+    const projectId = req.params.projectId;
+
+    try {
+
+        let project = await Project.findById(projectId);
+
+        //Handle if the project is not found
+        if (!project) {
+            res.status(401).json({
+                "Message" : "Project Not Found!"
+            })
+        }
+
+        res.status(200).json(project)
+        
+    } catch(err){catchErrorHandling(err)};
 }
 
 /**
