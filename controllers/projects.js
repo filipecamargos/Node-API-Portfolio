@@ -4,20 +4,14 @@ const Project = require("../model/project");
  * Create a Project
  */
 exports.createOneProject = async (req, res, next) => {
-  //get the body values
-  let title = req.body.title;
-  let imagePath = req.body.imagePath;
-  let description = req.body.description;
-  let stack = req.body.stack;
-  let link = req.body.link;
 
-  //instantiate the schema
+  //Instantiate the schema with the values received
   const project = new Project({
-    title: title,
-    imagePath: imagePath,
-    description: description,
-    stack: stack,
-    link: link,
+    title: req.body.title,
+    imagePath: req.body.imagePath,
+    description: req.body.description,
+    stack: req.body.stack,
+    link: req.body.link,
   });
 
   //save and handle the data
