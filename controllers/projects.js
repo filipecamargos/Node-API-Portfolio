@@ -1,6 +1,21 @@
 const Project = require("../model/project");
 
 /**
+ * Get All the Projects
+ */
+ exports.getAllProjects = async (req, res, next) => {
+  try {
+    const projects = await Project.find();
+    res.status(200).json(projects);
+  } catch (err) {
+    res.status(401).json({
+      Message: "No collections found!",
+      err,
+    });
+  }
+};
+
+/**
  * Create a Project
  */
 exports.createOneProject = async (req, res, next) => {
@@ -44,21 +59,6 @@ exports.getProjectById = async (req, res, next) => {
 };
 
 /**
- * Get All the Projects
- */
-exports.getAllProjects = async (req, res, next) => {
-  try {
-    const projects = await Project.find();
-    res.status(200).json(projects);
-  } catch (err) {
-    res.status(401).json({
-      Message: "No collections found!",
-      err,
-    });
-  }
-};
-
-/**
  * Edit A Project by ID
  */
 exports.editProjectById = async (req, res, next) => {
@@ -86,7 +86,5 @@ exports.deleteProjectById = async (req, res, next) => {
  * Helping Functions
  */
 
-//Catch error handler
-const catchErrorHandling = (err) => {
-  console.log(err);
-};
+//General Error Handling Function
+
