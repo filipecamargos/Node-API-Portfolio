@@ -9,7 +9,7 @@ exports.getAllProjects = async (req, res, next) => {
     res.status(200).json(projects);
   } catch (err) {
     res.status(404).json({
-      Message: "No collections found!",
+      Message: "Collections not found!",
       err,
     });
   }
@@ -46,11 +46,14 @@ exports.createOneProject = async (req, res, next) => {
 exports.getProjectById = async (req, res, next) => {
   const projectId = req.params.projectId;
   try {
-    let project = await Project.findById(projectId);
+    const project = await Project.findById(projectId);
+    if (!project) {
+      throw new Error("Project not found!")
+    } 
     res.status(200).json(project);
   } catch (err) {
     res.status(404).json({
-      Message: "Project Not Found!",
+      Message: "Project not found!",
       err,
     });
   }
@@ -74,8 +77,8 @@ exports.editProjectById = async (req, res, next) => {
     res.status(201).json(savedProject);
 
   } catch (err) {
-    res.status(502).json({
-      message: "Error updating data",
+    res.status(400).json({
+      message: "Unable to update passed project",
       err,
     });
   }
@@ -85,12 +88,19 @@ exports.editProjectById = async (req, res, next) => {
  * Delete A Project by ID
  */
 exports.deleteProjectById = async (req, res, next) => {
-  const id = req.params.projectId;
-
-  res.status(200).json({
-    test: "Delete A Project By ID",
-    id: id,
-  });
+  const projectId = req.params.projectId;
+  try {
+    const project = await Project.findById(projectId);
+    if (!project) {
+      throw new Error("Project not found!")
+    }
+    await Project.findByIdAndDelete(projectId);
+  } catch(err) {
+    res.status(404).json({
+      message: "Project not found!",
+      err
+    })
+  }
 };
 
 /**
