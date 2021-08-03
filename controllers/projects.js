@@ -7,12 +7,7 @@ exports.getAllProjects = async (req, res, next) => {
   try {
     const projects = await Project.find();
     res.status(200).json(projects);
-  } catch (err) {
-    res.status(404).json({
-      Message: "Collections not found!",
-      err,
-    });
-  }
+  } catch(err) { erroHandler(res, 404, "Collections not found!", err) }
 };
 
 /**
@@ -32,12 +27,7 @@ exports.createOneProject = async (req, res, next) => {
   try {
     await project.save();
     res.status(201).json(project);
-  } catch (err) {
-    res.status(501).json({
-      Message: "Error entering data!",
-      err,
-    });
-  }
+  } catch(err) { erroHandler(res, 501, "Error entering data!", err) }
 };
 
 /**
@@ -51,12 +41,7 @@ exports.getProjectById = async (req, res, next) => {
       throw new Error("Project not found!")
     } 
     res.status(200).json(project);
-  } catch (err) {
-    res.status(404).json({
-      Message: "Project not found!",
-      err,
-    });
-  }
+  } catch (err) { erroHandler(res, 404, "Project not found!", err ) }
 };
 
 /**
@@ -76,12 +61,7 @@ exports.editProjectById = async (req, res, next) => {
     const savedProject = await project.save();
     res.status(201).json(savedProject);
 
-  } catch (err) {
-    res.status(400).json({
-      message: "Unable to update passed project",
-      err,
-    });
-  }
+  } catch(err) { erroHandler(res, 400, "Unable to update passed project", err) }
 };
 
 /**
@@ -95,12 +75,8 @@ exports.deleteProjectById = async (req, res, next) => {
       throw new Error("Project not found!")
     }
     await Project.findByIdAndDelete(projectId);
-  } catch(err) {
-    res.status(404).json({
-      message: "Project not found!",
-      err
-    })
-  }
+    res.status(200).json({status: 200, id: projectId, message: 'Project Deleted!'})
+  } catch(err) { erroHandler(res, 404, "Project not found!", err) }
 };
 
 /**
@@ -108,3 +84,9 @@ exports.deleteProjectById = async (req, res, next) => {
  */
 
 //General Error Handling Function
+const erroHandler = (res, statusCode, message, err) => {
+  res.status(statusCode).json({
+    message: message,
+    err: err
+  })
+};
