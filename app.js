@@ -1,9 +1,12 @@
 const express = require("express");
+const path = require('path');
 const mongoose = require("mongoose");
 
 //Import the config file
 const CONFIG = require("./config");
-const projectsRoutes = require("./routes/projects")
+//Routers
+const projectsRoutes = require("./routes/projects");
+const projectManagerRoutes = require("./routes/projectManager");
 
 const app = express();
 
@@ -20,12 +23,20 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/", projectsRoutes);
+//Set up for path and handling the view 
+app.use(express.static(path.join(__dirname, 'public')))
+    .set('views', path.join(__dirname, 'views'))
+    .set('images', path.join(__dirname, 'images') )
+    .set('view engine', 'ejs');
+
+app.use(projectsRoutes);
+app.use(projectManagerRoutes);
 
 //Set the connection
 mongoose
   .connect(CONFIG.db, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then((result) => {
+  .then(() => {
+    console.log('Port -> 8000')
     app.listen(8000);
   })
   .catch((err) => {
