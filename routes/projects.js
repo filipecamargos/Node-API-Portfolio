@@ -1,7 +1,7 @@
 const express = require("express");
 const { body } = require("express-validator");
 
-const projectsController = require("../controllers/projects");
+const projectsController = require("../controllers/APIs/projects");
 const router = express.Router();
 
 //Router ->  Get all projects

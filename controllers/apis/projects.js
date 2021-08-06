@@ -1,4 +1,4 @@
-const Project = require("../model/project");
+const Project = require("../../model/project");
 
 /**
  * Get All the Projects
@@ -17,10 +17,10 @@ exports.createOneProject = async (req, res, next) => {
   //Instantiate the schema with the values received
   const project = new Project({
     title: req.body.title,
-    imagePath: req.body.imagePath,
     description: req.body.description,
     stack: req.body.stack,
     link: req.body.link,
+    gitHubUrl: req.body.gitHubUrl
   });
 
   //save and handle the data
@@ -53,10 +53,10 @@ exports.editProjectById = async (req, res, next) => {
     const project = await Project.findById(projectId);
 
     project.title = req.body.title;
-    project.imagePath = req.body.imagePath;
     project.description = req.body.description;
     project.stack = req.body.stack;
     project.link = req.body.link;
+    project.gitHubUrl = req.body.gitHubUrl;
 
     const savedProject = await project.save();
     res.status(201).json(savedProject);
