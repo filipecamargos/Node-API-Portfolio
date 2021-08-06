@@ -1,5 +1,5 @@
 const express = require('express');
-const projectManagerApp = require('../controllers/projectManagerApp');
+const projectManagerApp = require('../controllers/pages/projectManagerApp');
 const router = express.Router();
 
 //Serve the project Manager App

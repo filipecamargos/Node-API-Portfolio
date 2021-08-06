@@ -1,4 +1,4 @@
-const Project = require("../model/project");
+const Project = require("../../model/project");
 
 /**
  * Get All the Projects
