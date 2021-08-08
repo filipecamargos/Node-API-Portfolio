@@ -10,9 +10,6 @@ const projectManagerRoutes = require("./routes/projectManager");
 
 const app = express();
 
-//Register a body parser
-app.use(express.json());
-
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -22,6 +19,10 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
 });
+
+//Register a body parser
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 //Set up for path and handling the view 
 app.use(express.static(path.join(__dirname, 'public')))
