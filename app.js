@@ -37,7 +37,6 @@ app.use(projectManagerRoutes);
 mongoose
   .connect(CONFIG.db, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
-    console.log('Port -> 8000')
     app.listen(8000);
   })
   .catch((err) => {
