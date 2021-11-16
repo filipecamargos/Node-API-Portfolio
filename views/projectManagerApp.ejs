@@ -16,7 +16,7 @@
     </header>
     <main>
         <div id="form-container">
-            <form>
+            <form action="/createProject" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="title">Title</label>
                     <input type="text" class="form-control" id="title" name="title" placeholder="Project Title">
@@ -35,12 +35,13 @@
                 </div>
                 <div class="form-group">
                     <label for="gitHubUrl">GitHub URL</label>
-                    <input type="text" class="form-control" id="gitHubUrl" placeholder="GitHub Repo Link">
+                    <input type="text" class="form-control" id="gitHubUrl" placeholder="GitHub Repo Link" name="gitHubUrl">
                 </div>
                 <div class="form-group">
                     <label for="imageUpload">Upload Images:</label>
                     <input type="file" class="form-control-file" id="imageUpload" name="projectImages" multiple>
                 </div>
+                <button type="submit">Submit</button>
             </form>
         </div>
     </main>
