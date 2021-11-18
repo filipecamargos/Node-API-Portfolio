@@ -1,18 +1,5 @@
 const Project = require("../../model/project");
- 
-var multer = require('multer');
 const path = require('path');
-
-var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads')
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now())
-    }
-});
-  
-var upload = multer({ storage: storage });
 
 /**
  * Get All the Projects
@@ -29,7 +16,6 @@ exports.getAllProjects = async (req, res, next) => {
  */
 exports.createOneProject = async (req, res, next) => {
 
-  upload.single('image')
   //Instantiate the schema with the values received
   const project = new Project({
     title: req.body.title,
@@ -37,10 +23,7 @@ exports.createOneProject = async (req, res, next) => {
     stack: req.body.stack,
     link: req.body.link,
     gitHubUrl: req.body.gitHubUrl,
-    img: {
-      data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-      contentType: 'image/png'
-    }
+    imgUrl: req.file.path
   });
 
   //save and handle the data
