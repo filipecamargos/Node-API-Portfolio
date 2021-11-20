@@ -10,7 +10,7 @@ const projectsRoutes = require("./routes/projects");
 const projectManagerRoutes = require("./routes/projectManager");
 
 const app = express();
-const fileStore = multer.diskStorage({
+const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'images');
   },
@@ -43,12 +43,13 @@ app.use((req, res, next) => {
 
 //Register routers
 app.use(express.json());
-app.use(multer({storage: fileStorage, fileFilter: fileFileter}).single('image'));
+app.use(multer({storage: fileStorage, fileFilter: fileFilter}).single('projectImages'));
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use(express.urlencoded({extended: true}));
 
 //Set up for path and handling the view 
 app.use(express.static(path.join(__dirname, 'public')))
+    .use(express.static(path.join(__dirname, 'images')))
     .set('views', path.join(__dirname, 'views'))
     .set('images', path.join(__dirname, 'images') )
     .set('view engine', 'ejs');

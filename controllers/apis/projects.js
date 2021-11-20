@@ -15,8 +15,8 @@ exports.getAllProjects = async (req, res, next) => {
  * Create a Project
  */
 exports.createOneProject = async (req, res, next) => {
-
   //Instantiate the schema with the values received
+  console.log(req.body)
   const project = new Project({
     title: req.body.title,
     description: req.body.description,
