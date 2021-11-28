@@ -11,7 +11,7 @@ const projectSchema = new Schema(
     gitHubUrl: {type: String, required: true},
     img: {
       data: Buffer,
-      type: String
+      contentType: String
     }
   },
   { timestamps: true } //Construct a timeStamp automatically 

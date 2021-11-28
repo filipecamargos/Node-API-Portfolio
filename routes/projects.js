@@ -9,7 +9,7 @@ const router = express.Router();
 router.get("/getProjects", projectsController.getAllProjects);
 
 //Router -> Creat a project
-router.post("/createProject", upload.fields([]), projectsController.createOneProject);
+router.post("/createProject", upload.single('image'), projectsController.createOneProject);
 
 //Router -> Get a project by ID
 router.get("/getProjectById/:projectId", projectsController.getProjectById);

@@ -1,5 +1,6 @@
 const Project = require("../../model/project");
 const path = require('path');
+const fs = require('fs');
 
 /**
  * Get All the Projects
@@ -15,16 +16,21 @@ exports.getAllProjects = async (req, res, next) => {
  * Create a Project
  */
 exports.createOneProject = async (req, res, next) => {
-  //Instantiate the schema with the values received
-  console.log(req.body)
-  const project = new Project({
+  //create an object
+  const projectData  = {
     title: req.body.title,
     description: req.body.description,
     stack: req.body.stack,
     link: req.body.link,
     gitHubUrl: req.body.gitHubUrl,
-    imgUrl: req.file.path
-  });
+    img: {
+      data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+      contentType: 'image/png'
+    }
+  }
+
+  //Instantiate the schema with the values received
+  const project = new Project(projectData);
 
   //save and handle the data
   try {
