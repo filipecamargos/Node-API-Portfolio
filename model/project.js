@@ -8,7 +8,11 @@ const projectSchema = new Schema(
     description: { type: String, required: true },
     stack: {type: String, required: true},
     link: {type: String},
-    gitHubUrl: {type: String, required: true}
+    gitHubUrl: {type: String, required: true},
+    img: {
+      data: Buffer,
+      contentType: String
+    }
   },
   { timestamps: true } //Construct a timeStamp automatically 
 );

@@ -1,14 +1,15 @@
 const express = require("express");
-const { body } = require("express-validator");
+const multer = require('multer');
+const upload = multer();
 
-const projectsController = require("../controllers/APIs/projects");
+const projectsController = require("../controllers/apis/projects");
 const router = express.Router();
 
 //Router ->  Get all projects
 router.get("/getProjects", projectsController.getAllProjects);
 
 //Router -> Creat a project
-router.post("/createProject", projectsController.createOneProject);
+router.post("/createProject", upload.single('image'), projectsController.createOneProject);
 
 //Router -> Get a project by ID
 router.get("/getProjectById/:projectId", projectsController.getProjectById);
