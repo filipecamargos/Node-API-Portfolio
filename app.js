@@ -23,8 +23,8 @@ app.use((req, res, next) => {
 });
 
 //Register routers
-app.use(bodyParser.urlencoded({ extended: false}))
-  .use(bodyParser.json());
+app.use(express.urlencoded({ extended: false}))
+  .use(express.json());
 
 //Set up for path and handling the view 
 app.use(express.static(path.join(__dirname, 'public')))
