@@ -16,17 +16,23 @@ exports.getAllProjects = async (req, res, next) => {
  * Create a Project
  */
 exports.createOneProject = async (req, res, next) => {
+
   //create an object
   const projectData  = {
     title: req.body.title,
     description: req.body.description,
     stack: req.body.stack,
     link: req.body.link,
-    gitHubUrl: req.body.gitHubUrl,
-    img: {
-      data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-      contentType: 'image/png'
-    }
+    gitHubUrl: req.body.gitHubUrl
+  }
+
+  //Validations
+  if (projectData.title.length < 1) {
+    erroHandler(res, 400, "Invalid Request!", "Tille must be greater at least 1 characters" );
+  } 
+
+  if  (projectData.description.length < 10) {
+    erroHandler(res, 400, "Invalid Request!", "Description must be greater at least 10 characters" );
   }
 
   //Instantiate the schema with the values received
